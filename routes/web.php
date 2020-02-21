@@ -14,7 +14,7 @@
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('dokter', 'DokterController@index');
+Route::get('/dokter', 'DokterController@index');
 Route::get('/petugas/{nama}', 'PetugasController@index');
 Route::get('/formulir', 'PetugasController@formulir');
 Route::post('/formulir/proses', 'PetugasController@proses');
