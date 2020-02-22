@@ -11,7 +11,7 @@ class DokterController extends Controller
     public function index()
     {
     	// mengambil data dari table dokter
-    	$dokter = DB::table('dokter')->get();
+    	$dokter = DB::table('dokter')->paginate(10);
 
     	// mengirim data dokter ke view index
     	return view('index',['dokter' => $dokter]);
@@ -28,7 +28,8 @@ class DokterController extends Controller
 	{
 		// insert data ke table dokter
 		DB::table('dokter')->insert([
-			'NAMA' => $request->nama,
+            'NAMA' => $request->nama,
+            'UMUR' => $request->umur,
 			'JENIS_KELAMIN' => $request->jenis_kelamin,
 			'JABATAN' => $request->jabatan,
 			'TELP' => $request->telp,
@@ -63,8 +64,22 @@ class DokterController extends Controller
 	{
 		// menghapus data dokter berdasarkan id yang dipilih
 		DB::table('dokter')->where('ID_DOKTER',$id)->delete();
-		
+
 		// alihkan halaman ke halaman dokter
 		return redirect('/dokter');
-}
+    }
+    public function cari(Request $request)
+	{
+		// menangkap data pencarian
+		$cari = $request->cari;
+
+    		// mengambil data dari table pegawai sesuai pencarian data
+		$dokter = DB::table('dokter')
+		->where('NAMA','like',"%".$cari."%")
+		->paginate();
+
+    		// mengirim data pegawai ke view index
+		return view('index',['dokter' => $dokter]);
+
+	}
 }

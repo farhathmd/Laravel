@@ -23,3 +23,7 @@ Route::post('/dokter/store','DokterController@store');
 Route::get('/dokter/edit/{id}','DokterController@edit');
 Route::post('/dokter/update','DokterController@update');
 Route::get('/dokter/hapus/{id}','DokterController@hapus');
+Route::get('/dokter/cari','DokterController@cari');
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
